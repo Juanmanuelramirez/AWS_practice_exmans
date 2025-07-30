@@ -40,10 +40,8 @@
     <script>
         // --- CONFIGURACIÓN ---
         // Reemplaza estos valores con tu nombre de usuario y el nombre de tu repositorio de GitHub.
-        // Por ejemplo, si tu repositorio es "https://github.com/juanperez/mis-examenes",
-        // GITHUB_USERNAME sería "juanperez" y GITHUB_REPO sería "mis-examenes".
-        const GITHUB_USERNAME = "juanmanuelramirez";
-        const GITHUB_REPO = "AWS_practice_exmans";
+        const GITHUB_USERNAME = "YOUR_USERNAME";
+        const GITHUB_REPO = "YOUR_REPO_NAME";
         // ---------------------
 
         const listContainer = document.getElementById('simulators-list');
@@ -51,7 +49,6 @@
 
         /**
          * Formatea un nombre de archivo en un título legible.
-         * Ejemplo: "aws_devops_exam_simulator_es.html" -> "Aws Devops Exam Simulator Es"
          * @param {string} filename - El nombre del archivo a formatear.
          * @returns {string} - El título formateado.
          */
@@ -61,6 +58,23 @@
                 .replace(/_/g, ' ')   // Reemplaza guiones bajos por espacios
                 .replace(/-/g, ' ')    // Reemplaza guiones por espacios
                 .replace(/\b\w/g, l => l.toUpperCase()); // Pone en mayúscula la primera letra de cada palabra
+        }
+
+        /**
+         * Detecta el idioma del navegador y lo establece como predeterminado.
+         * Si el idioma es español ('es' o 'es-XX'), se usa español.
+         * Para cualquier otro idioma, se usa inglés por defecto.
+         */
+        function setDefaultLanguage() {
+            const userLang = navigator.language || navigator.userLanguage;
+            const langEsRadio = document.getElementById('lang-es');
+            const langEnRadio = document.getElementById('lang-en');
+
+            if (userLang.startsWith('es')) {
+                langEsRadio.checked = true;
+            } else {
+                langEnRadio.checked = true;
+            }
         }
 
         /**
@@ -138,8 +152,11 @@
             }
         }
 
-        // Iniciar la función al cargar la página
-        document.addEventListener('DOMContentLoaded', fetchAndDisplaySimulators);
+        // Iniciar las funciones al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            setDefaultLanguage();
+            fetchAndDisplaySimulators();
+        });
     </script>
 
 </body>
