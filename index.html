@@ -40,10 +40,8 @@
     <script>
         // --- CONFIGURACIÓN ---
         // Reemplaza estos valores con tu nombre de usuario y el nombre de tu repositorio de GitHub.
-        // Por ejemplo, si tu repositorio es "https://github.com/juanperez/mis-examenes",
-        // GITHUB_USERNAME sería "juanperez" y GITHUB_REPO sería "mis-examenes".
-        const GITHUB_USERNAME = "juanmanuelramirez";
-        const GITHUB_REPO = "AWS_practice_exmans";
+        const GITHUB_USERNAME = "YOUR_USERNAME";
+        const GITHUB_REPO = "YOUR_REPO_NAME";
         // ---------------------
 
         const listContainer = document.getElementById('simulators-list');
@@ -51,7 +49,6 @@
 
         /**
          * Formatea un nombre de archivo en un título legible.
-         * Ejemplo: "aws_devops_exam_simulator_es.html" -> "Aws Devops Exam Simulator Es"
          * @param {string} filename - El nombre del archivo a formatear.
          * @returns {string} - El título formateado.
          */
@@ -64,11 +61,28 @@
         }
 
         /**
+         * Detecta el idioma del navegador y lo establece como predeterminado.
+         * Si el idioma es español ('es' o 'es-XX'), se usa español.
+         * Para cualquier otro idioma, se usa inglés por defecto.
+         */
+        function setDefaultLanguage() {
+            const userLang = navigator.language || navigator.userLanguage;
+            const langEsRadio = document.getElementById('lang-es');
+            const langEnRadio = document.getElementById('lang-en');
+
+            if (userLang.startsWith('es')) {
+                langEsRadio.checked = true;
+            } else {
+                langEnRadio.checked = true;
+            }
+        }
+
+        /**
          * Obtiene y muestra la lista de simuladores desde la API de GitHub.
          */
         async function fetchAndDisplaySimulators() {
             // Validar configuración
-            if (GITHUB_USERNAME === "YOUR_USERNAME" || GITHUB_REPO === "YOUR_REPO_NAME") {
+            if (GITHUB_USERNAME === "juanmanuelramirez" || GITHUB_REPO === "AWS_practice_exmans") {
                 loadingState.innerHTML = `
                     <div class="bg-yellow-900 border-l-4 border-yellow-500 text-yellow-100 p-4" role="alert">
                         <p class="font-bold">Configuración Requerida</p>
@@ -138,8 +152,11 @@
             }
         }
 
-        // Iniciar la función al cargar la página
-        document.addEventListener('DOMContentLoaded', fetchAndDisplaySimulators);
+        // Iniciar las funciones al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            setDefaultLanguage();
+            fetchAndDisplaySimulators();
+        });
     </script>
 
 </body>
